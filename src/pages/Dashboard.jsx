@@ -35,6 +35,12 @@ function Dashboard() {
   const generateRecipe = async () => {
     if (selectedIngredients.length === 0) return;
     
+    // Check if we have at least 3 ingredients
+    if (selectedIngredients.length < 3) {
+      setRecipeError('Please select at least 3 ingredients to generate a recipe.');
+      return;
+    }
+    
     setIsGenerating(true);
     setRecipeError(null);
     setGeneratedRecipe(null);

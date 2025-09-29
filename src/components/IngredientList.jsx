@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { CookingPot, RotateCcw } from 'lucide-react';
+import { CookingPot, RotateCcw, AlertTriangle } from 'lucide-react';
 import IngredientItem from './IngredientItem';
 
 function IngredientList({ 
@@ -48,19 +48,34 @@ function IngredientList({
       
       {/* Fixed Buttons at Bottom */}
       <footer className="p-6 border-t border-border bg-card/30 backdrop-blur-sm space-y-3">
+        {/* Warning message for insufficient ingredients */}
+        {selectedIngredients.length > 0 && selectedIngredients.length < 3 && (
+          <div className="flex items-start gap-2 p-3 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg">
+            <AlertTriangle className="h-4 w-4 text-yellow-600 dark:text-yellow-400 mt-0.5 flex-shrink-0" />
+            <p className="text-sm text-yellow-800 dark:text-yellow-200">
+              Add at least 3 ingredients to generate a recipe
+            </p>
+          </div>
+        )}
+        
         <Button 
           className="w-full bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-primary-foreground shadow-lg hover:shadow-xl transition-all duration-200"
           size="lg"
-          disabled={selectedIngredients.length === 0 || isGenerating}
+          disabled={selectedIngredients.length === 0 || selectedIngredients.length < 3 || isGenerating}
           onClick={onGenerateRecipe}
-          aria-describedby={selectedIngredients.length === 0 ? "no-ingredients-help" : undefined}
+          aria-describedby={selectedIngredients.length === 0 ? "no-ingredients-help" : selectedIngredients.length < 3 ? "insufficient-ingredients-help" : undefined}
         >
           <CookingPot className="h-4 w-4 mr-2" aria-hidden="true" />
-          {isGenerating ? 'Generating Recipe...' : `Generate Recipe (${selectedIngredients.length} ingredients)`}
+          {isGenerating ? 'Generating Recipe...' : `Generate Recipe (${selectedIngredients.length} ${selectedIngredients.length === 1 ? 'ingredient' : 'ingredients'})`}
         </Button>
         {selectedIngredients.length === 0 && (
           <p id="no-ingredients-help" className="sr-only">
             You need to select at least one ingredient to generate a recipe
+          </p>
+        )}
+        {selectedIngredients.length > 0 && selectedIngredients.length < 3 && (
+          <p id="insufficient-ingredients-help" className="sr-only">
+            You need at least 3 ingredients to generate a recipe
           </p>
         )}
         
