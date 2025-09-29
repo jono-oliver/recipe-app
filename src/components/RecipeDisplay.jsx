@@ -7,9 +7,6 @@ function RecipeDisplay({ generatedRecipe, recipeError, isGenerating, onRetry }) 
     return (
       <article className="mx-auto max-w-4xl">
         <div className="mb-6">
-          <header className="mb-6">
-            <h2 className="text-2xl font-bold">Generating Recipe...</h2>
-          </header>
           <div className="text-center py-12" role="status" aria-live="polite">
             <div className="flex flex-col items-center gap-4">
               <Loader2 className="h-8 w-8 text-primary animate-spin" aria-hidden="true" />
@@ -26,9 +23,6 @@ function RecipeDisplay({ generatedRecipe, recipeError, isGenerating, onRetry }) 
     return (
       <article className="mx-auto max-w-4xl">
         <div className="mb-6">
-          <header className="mb-6">
-            <h2 className="text-2xl font-bold">Generated Recipe</h2>
-          </header>
           <div className="text-center py-8" role="alert">
             <div className="text-destructive mb-2">Error generating recipe</div>
             <p className="text-muted-foreground">{recipeError}</p>
@@ -52,9 +46,6 @@ function RecipeDisplay({ generatedRecipe, recipeError, isGenerating, onRetry }) 
   return (
     <article className="mx-auto max-w-4xl">
       <div className="mb-6">
-        <header className="mb-6">
-          <h2 className="text-2xl font-bold">Generated Recipe</h2>
-        </header>
         <div className="prose prose-sm max-w-none">
           <header>
             <h2 className="text-2xl font-bold text-foreground mb-4">{generatedRecipe.recipeName}</h2>
